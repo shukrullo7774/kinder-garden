@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Queries.GetStudentQueri;
 using MediatR;
 using Application.Features.Students.Create;
+using AutoMapper;
 
 namespace YourNamespace.Controllers
 {
@@ -13,8 +14,11 @@ namespace YourNamespace.Controllers
     {
         private readonly IMediator _mediator;
 
-        public StudentController(IMediator mediator)
-        {
+        private readonly IMapper _mapper;
+
+        public StudentController(IMediator mediator, IMapper mapper)
+        {   
+            _mapper = mapper;
             _mediator = mediator;
         }
 

@@ -1,15 +1,8 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
+using Persistance;
+using Notes.Application;
+using Application.Common.Mappings;
 using System.Reflection;
 using Application.Interfaces;
-using Persistance;
-using Application.Common.Mappings;
-using AutoMapper;
-using Notes.Application;
 
 namespace WebApi
 {
@@ -41,13 +34,8 @@ namespace WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddAutoMapper(config =>
-                    {
-                        config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-                        config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
-                    });
+                    services.AddAutoMapper(typeof(Program));
 
-                    services.AddApplication();
                     services.AddPersistance(hostContext.Configuration);
                     services.AddControllers();
 
